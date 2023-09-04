@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const buttonStyle = {
-    fontSize: "30px",
+    fontSize: "100px",
     border: "none",
     outline: "none",
     background: "transparent",
