@@ -1,33 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AButton } from "./components/a";
-import { Timer } from "./components/timer";
 
-
+const startButtonStyle = {
+    fontSize: "20px",
+    outline: "none",
+    background: "transparent",
+    zIndex: "10000"
+}
 
 export const App = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [time, setTime] = useState(15);
 
-    const onClickButton = () => {
-        setIsPlaying(!isPlaying);
-    };
+    const onClickButton = useCallback(() => {
+        setIsPlaying(true);
+    }, []);
+    
+    const Timer = useCallback(() => {
+        if (isPlaying && time > 0) {
+            setTimeout(() => {
+                setTime(time - 1);
+            }, 1000);
+        } else if (isPlaying && time === 0) {
+            alert("あーあ、じかんぎれ");
+            setIsPlaying(false);
+            setTime(15);
+        };
+    }, [isPlaying, time]);
 
-    if (isPlaying) {
-        setTimeout(() => {
-            setTime(time - 1);
-        }, 1000);
-    };
 
+    useEffect(() => {
+        Timer();
+    }, [Timer]);
+    
+    useEffect(() => {
+        if (!isPlaying) {
+            setTime(15);
+        }
+    }, [time]);
 
+    
     return (
         <>
+            <AButton isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
             <div>
-                <AButton />
+                {time}
             </div>
-            <div>
-                <Timer time={time} />
-            </div>
-            <button onClick={onClickButton}>{isPlaying ? "探せ！" : "スタート"}</button>
+            <button style={startButtonStyle} onClick={onClickButton}>{isPlaying ? "つかまえろ！" : "すたーと"}</button>
         </>
     );
 };
