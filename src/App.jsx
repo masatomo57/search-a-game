@@ -37,7 +37,7 @@ export const App = () => {
         if (!isPlaying) {
             setTime(15);
         }
-    }, [time]);
+    }, [time, isPlaying]);
 
     
     return (

@@ -5,7 +5,6 @@ const buttonStyle = {
     border: "none",
     outline: "none",
     background: "transparent",
-    zIndex: "10000"
 };
 
 const Width = window.innerWidth;
@@ -29,7 +28,8 @@ export const AButton = (props) => {
     const absoluteStyle = {
         position: "absolute",
         left: `${position.x}px`,
-        top: `${position.y}px`
+        top: `${position.y}px`,
+        cursor: "pointer"
     };
 
     return (
